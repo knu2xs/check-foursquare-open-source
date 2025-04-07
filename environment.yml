@@ -4,15 +4,8 @@ channels:
   - conda-forge
 
 dependencies:
-  - black>=21
-  - jupyterlab
   - pandas
   - pip
-  - pytest
-  - tqdm
   - pip:
     - boto3
-    - build
-    - bump2version
-    - twine
     - py-message@git+https://github.com/knu2xs/py-message

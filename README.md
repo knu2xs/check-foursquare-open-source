@@ -1,30 +1,25 @@
-# check-foursquare-open-source
+# Check-Foursquare-Open-Source
 
-Check if Foursquare Open Source data has been released for the ccurrent month.
-
+Foursquare's Open Source Places data _typically_ is released on or around the sixth of the month. However, the [web page](https://docs.foursquare.com/data-products/docs/access-fsq-os-places) rarely reflects the updated release vintage. Consequently, checking to see if data has been released requires regularly checking the bucket contents using the [AWS CLI](https://aws.amazon.com/cli/). Rather than continually checking, I let the script `scripts/check-available.py` do the work for me.
 ## Getting Started
 
 1 - Clone this repo.
 
-2 - Create an environment with the requirements.
+2 - Create a `config/secrets.ini` file with Pushover credentials. The following can be used as a template.
+
+```
+[PUSHOVER]
+USER_KEY=
+API_TOKEN=
+```
+
+2 - Create an environment with dependencies. NOTE: This uses `conda`, so you will need at least [miniconda](https://www.anaconda.com/docs/getting-started/miniconda/install) installed.
     
 ```
         > make env
 ```
 
-3 - Explore - If you are more into Python, a good place to start is `jupyter lab` from the root of the project, and look in the `./notebooks` directory. If GIS is more your schtick, open the project `./arcgis/check-foursquare-open-source.aprx`.
-
-## Using Make - common commands
-
-Based on the pattern provided in the [Cookiecutter Data Science template by Driven Data](https://drivendata.github.io/cookiecutter-data-science/) this template streamlines a number of commands using the `make` command pattern.
-
-- `make env` - builds the Conda environment with all the name and dependencies from `environment_dev.yml` and installs the local project package `check_foursquare_open_source` using the command `python -m pip install -e ./src/src/check_foursquare_open_source` so you can easily test against the package as you are developing it.
-
-- `make env_clone` - designed for environments using the default Conda instance installed with ArcGIS Pro. It is similar to `make env`, except this command clones the `arcgispro-py3` environment. Otherwise, it still installs the packages listed in `environment_dev.yml` and installs the local package using `pip` as described above.
-
-- `make docs` - builds Sphinx docs based on files in `./docsrc/source` and places them in `./docs`. This enables easy publishing in the master branch in GitHub.
-
-- `make test` - activates the environment created by the `make env` or `make env_clone` and runs all the tests in the `./testing` directory using PyTest. Alternately, if you prefer to use [TOX](https://tox.readthedocs.io) for testing (my preference), there is a `tox.ini` file included as well. The dependencies (`tox` and `tox-conda`) for using TOX are included in the default requirements. By default, the TOX file creates an environment from the `environment.yml` file using much fewer dependencies than the `*_dev.yml` files.
+3 - Run the script using `make check`, or set up a scheduled task to run the script using the environment located in `./env`.
 
 ## BumpVersion Cliff Notes
 

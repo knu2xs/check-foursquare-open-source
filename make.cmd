@@ -37,13 +37,8 @@ SET CONDA_DIR="%~dp0env"
 GOTO %1
 
 :: Perform data preprocessing steps contained in the make_data.py script.
-:data
-    CALL conda run -p %CONDA_DIR% python scripts/make_data.py
-    GOTO end
-
-:: Make documentation using Sphinx!
-:docs
-    CALL conda run -p %CONDA_DIR% sphinx-build -a -b html docsrc docs
+:check
+    CALL conda run -p %CONDA_DIR% python scripts/check-available.py
     GOTO end
 
 :: Build the local environment from the environment file
@@ -58,49 +53,12 @@ GOTO %1
     :: Add more fun stuff from environment file
     CALL conda env update -p %CONDA_DIR% -f environment.yml
 
-    :: Install the local package in development (experimental) mode
-    CALL conda run -p %CONDA_DIR% python -m pip install -e .
-
     GOTO end
-
-:: Remove the environment
-:remove_env
-    CALL conda deactivate
-    CALL conda env remove -p %CONDA_DIR% -y
-	GOTO end
 
 :: Start Jupyter Label
 :jupyter
     CALL conda run -p %CONDA_DIR% python -m jupyterlab --ip=0.0.0.0 --allow-root --NotebookApp.token=""
     GOTO end
-
-:: Make *.pyt zipped archive with requirements
-:pyt_pkg
-    CALL conda run -p %CONDA_DIR% python -m scripts/make_pyt_archive.py
-
-:: Make the package for uploading
-:wheel
-
-    :: Build the pip package
-    CALL conda run -p %CONDA_DIR% python -m build --wheel
-
-    GOTO end
-
-:: Run all tests in module
-:test
-	CALL conda run -p %CONDA_DIR% pytest "%~dp0testing"
-	GOTO end
-
-:: black formatting
-:black
-    CALL conda run -p %CONDA_dIR% black src/ --verbose
-    GOTO end
-
-:lint
-    GOTO black
-
-:linter
-    GOTO black
 
 :end
     EXIT /B
