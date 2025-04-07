@@ -10,17 +10,15 @@ authors = [
 ]
 description = "Check if Foursquare Open Source data has been released for the ccurrent month."
 readme = "README.md"
-requires-python = ">=3.6, <=3.12"
+requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: Apache Software License",
 ]
 license = {file = "LICENSE"}
 dependencies = [
-    "arcgis>=2.2.0",
-    "numpy>=1.7",
-    "pandas>=1.0.5",
-    "pyarrow>=1.0.0"
+    "boto3",
+    "pandas"
 ]
 
 [tool.setuptools.packages.find]
