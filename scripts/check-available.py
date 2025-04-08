@@ -27,20 +27,20 @@ if __name__ == '__main__':
     # get today's date
     dt_today = date.today()
 
-    # set up logging
-    logging.basicConfig(
-        filename=dir_logs / f'check_available_{dt_today.year}{dt_today.month:02d}{dt_today.day}.log',
-        level=logging.INFO,
-        datefmt='%Y-%m-%d %H:%M:%S',
-        format='%(asctime)s - %(levelname)s - %(message)s',
-    )
-
     # ensure directory for data and logs exist
     if not dir_logs.exists():
         dir_logs.mkdir(parents=True)
 
     if not dir_data.exists():
         dir_data.mkdir(parents=True)
+
+    # set up logging
+    logging.basicConfig(
+        filename=dir_logs / f'check_available_{dt_today.year}{dt_today.month:02d}{dt_today.day:02d}.log',
+        level=logging.INFO,
+        datefmt='%Y-%m-%d %H:%M:%S',
+        format='%(asctime)s - %(levelname)s - %(message)s',
+    )
 
     # get the path to the configuration secrets file
     config_secrets_pth = Path(__file__).parent.parent / 'config' / 'secrets.ini'
