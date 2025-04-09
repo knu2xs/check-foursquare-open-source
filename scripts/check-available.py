@@ -110,7 +110,7 @@ if __name__ == '__main__':
         mtch_lst = [dt for dt in dt_lst if dt_today.year == dt.year and dt_today.month == dt.month]
 
         # boolean if data has been released for current month
-        data_released = len(mtch_lst) > 1
+        data_released = len(mtch_lst) >= 1
 
         # format the date string for the current month
         dt_str = dt_today.strftime('%b %Y')
